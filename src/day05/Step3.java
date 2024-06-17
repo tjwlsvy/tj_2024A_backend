@@ -102,6 +102,7 @@ public class Step3 {
         }
         System.out.println(html);
          */
+        /*
         // [7]
         System.out.println("[7]줄수 : ");
         int iLine =scanner.nextInt();
@@ -120,9 +121,22 @@ public class Step3 {
             html += "\n";
         }
         System.out.println(html);
+        */
 
         // [8]
 
+        System.out.println("[8]줄수 : ");
+        int iLine = scanner.nextInt();
+        String html = "";
+
+        for(int cLine = 1; cLine <= iLine ; cLine++) {
+            for (int blank = 1; blank <= cLine; blank++) {
+                html += " ";
+            }
+            for (int star = 1; star < iLine; star++) {
+            }
+            html += "\n";
+        }
 
 
 
