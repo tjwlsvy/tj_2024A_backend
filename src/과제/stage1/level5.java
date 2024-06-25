@@ -5,19 +5,19 @@ public class level5 {
     public static void main(String[] args) {
 
     byte b = 100;
-    short s1 = b;
+    System.out.println("byte -> short : " + b);
 
     short s = 30000;
-    int i1 = s;
+    System.out.println("short -> int : " + s);
 
     int i = 200000000;
-    long l1 = i;
+    System.out.println("int -> long : " + i);
 
     long l = 400000l;
-    float f1 = l;
+    System.out.println("long -> float : " + l);
 
-    float f = 3.1234512313f;
-    double d = f;
+    double d = 3.1234512313f;
+    System.out.println("float -> double : " + d);
 
 
 

@@ -1,0 +1,42 @@
+public interface X {    void x();}
+인터페이스 x 추상메소드 x()
+public interface X {    void y();}
+인터페이스 y 추상메소드 y()
+interface MyInterface extends X,Y{
+    void myMethod(); }
+마이인터페이스 xy로부터 상속받음
+
+class MyClass implements MyInterface{
+    마이클래스는 마이인터페이스를  참조한다
+
+    @Override
+    public void x() {
+        System.out.println("x( )");
+    }
+
+    @Override
+    public void y() {
+        System.out.println("y( )");
+    }
+
+    @Override
+    public void myMethod() {
+        System.out.println("myMethod( )");
+    }
+}
+
+ public static void main(String[] args) {
+
+        MyClass mClass = new MyClass();
+        X xClass = mClass;
+        xClass.x();
+
+        Y yClass = mClass;
+        yClass.y();
+
+        MyInterface iClass = mClass;
+        iClass.myMethod();
+        iClass.x();
+        iClass.y();
+    }
+}
