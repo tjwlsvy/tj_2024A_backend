@@ -6,76 +6,48 @@ public class level8 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String header = "\n==========방문록==========\n번호 \t 작성자 \t 방문록\n";
-        String boardList = "";
-        String footer = "============================";
+
+        String header = "\n============방문록===============\n번호\t 작성자 \t 방문록\n";
+        String boardlist = "";
+        String footer = "================================\n";
         String output = "";
-        String writer , list;
 
 
+        System.out.println( header + boardlist + footer );
 
-        // 1. 작성자 방문록 입력받기
-        System.out.println("[1] 작성자 : ");
-        writer = scanner.next();
+        System.out.print("[1]작성자 : ");
+        boardlist += "1\t"+scanner.next()+"\t";
+        System.out.print("[1]방문록 : ");
+        scanner.nextLine();
+        boardlist += scanner.nextLine()+"\n";
+        System.out.println( header + boardlist + footer );
 
-        System.out.println("[1] 방문록 : ");
-        list = scanner.next();
+        System.out.print("[2]작성자 : ");
+        boardlist += "1\t"+scanner.next()+"\t";
+        System.out.print("[2]방문록 : ");
+        scanner.nextLine();
+        boardlist += scanner.nextLine()+"\n";
+        System.out.println( header + boardlist + footer );
 
-        boardList += "1       "+ writer+"       "+ list+ "\n";
+        System.out.print("[3]작성자 : ");
+        boardlist += "1\t"+scanner.next()+"\t";
+        System.out.print("[3]방문록 : ");
+        scanner.nextLine();
+        boardlist += scanner.nextLine()+"\n";
+        System.out.println( header + boardlist + footer );
 
-        output = header + boardList + footer;
-        System.out.println(output);
+        System.out.print("[4]작성자 : ");
+        boardlist += "1\t"+scanner.next()+"\t";
+        System.out.print("[4]방문록 : ");
+        scanner.nextLine();
+        boardlist += scanner.nextLine()+"\n";
+        System.out.println( header + boardlist + footer );
 
-        // 2. 작성자 방문록 입력받기
-        System.out.println("[2] 작성자 : ");
-        writer = scanner.next();
-
-        System.out.println("[2] 방문록 : ");
-        list = scanner.next();
-
-        boardList += "2       "+ writer+"       "+ list+ "\n";
-
-        output = header + boardList + footer;
-        System.out.println(output);
-
-        // 3. 작성자 방문록 입력받기
-        System.out.println("[3] 작성자 : ");
-        writer = scanner.next();
-
-        System.out.println("[3] 방문록 : ");
-        list = scanner.next();
-
-        boardList += "3       "+ writer+"       "+ list+ "\n";
-
-        output = header + boardList + footer;
-        System.out.println(output);
-
-        // 4. 작성자 방문록 입력받기
-        System.out.println("[4] 작성자 : ");
-        writer = scanner.next();
-
-        System.out.println("[4] 방문록 : ");
-        list = scanner.next();
-
-        boardList +="4       "+ writer+"       "+ list+ "\n";
-
-        output = header + boardList + footer;
-        System.out.println(output);
-
-        // 5. 작성자 방문록 입력받기
-        System.out.println("[5] 작성자 : ");
-        writer = scanner.next();
-
-        System.out.println("[5] 작성자 : ");
-        list = scanner.next();
-
-        boardList +="5       "+ writer+"       "+ list+ "\n";
-
-        output =header + boardList + footer;
-        System.out.println(output);
-
-
-
-
+        System.out.print("[5]작성자 : ");
+        boardlist += "1\t"+scanner.next()+"\t";
+        System.out.print("[5]방문록 : ");
+        scanner.nextLine();
+        boardlist += scanner.nextLine()+"\n";
+        System.out.println( header + boardlist + footer );
     }
 }
