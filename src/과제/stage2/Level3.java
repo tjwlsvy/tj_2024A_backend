@@ -19,6 +19,18 @@ public class Level3 {
         int 수학 = 90;
         int 영어 = 77;
 
+        int total = 국어 + 수학 + 영어;
+        double mean = (double) total / 3;
+        boolean b1 = total % 3 == 0 ? true : false;
+        boolean b2 = total % 8 == 0 ? true : false;
+        String s1 = total % 2 == 0 ? "짝수" : "홀수";
+        String s2 = total >= 65 ? "합격" : "불합격";
+
+        System.out.println("국어  영어  수학  합계  평균  3배수  8배수  합계값  결과 \n");
+
+
+
+
 
 
 
