@@ -1,6 +1,7 @@
 package day16.controller;
 
 import day16.model.dao.MemberDao;           // day16에 있는 MemberDao 참조한다.
+import day16.model.dto.BoardDto;
 import day16.model.dto.MemberDto;           // day16에 있는 MemberDto 참조한다.
 
 public class MemberController { // MemberController클래스를 만든가
@@ -62,5 +63,6 @@ public class MemberController { // MemberController클래스를 만든가
         return MemberDao.mdao.mUpdate(memberDto); // 3개 변수인 수정할 회원명,연락처,로그인된 회원번호 (member)
 //MemberDao.mdao.mUpdate( memberDto ) : MemberDao클래스 안에 있는 mdao 멤버변수에 들어있는 객체를 호출 해서 mUpdate() 에 매개변수로 memberDto 전달하여 함수 호출한다. mUpdate()실행후 반환값 값을 리턴 한다.
     } // mUpdate end
+
 
 }//  c end

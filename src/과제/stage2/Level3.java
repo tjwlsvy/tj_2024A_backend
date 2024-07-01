@@ -26,14 +26,10 @@ public class Level3 {
         String s1 = total % 2 == 0 ? "짝수" : "홀수";
         String s2 = total >= 65 ? "합격" : "불합격";
 
-        System.out.println("국어  영어  수학  합계  평균  3배수  8배수  합계값  결과 \n");
 
-
-
-
-
-
-
+        System.out.printf("========================================== \n"+
+                "국어  영어  수학  합계  평균  3배수  8배수  합계값  결과 \n"+
+                "%d    %d   %d    %d  %.0f   %b  %b   %s    %s  ",국어,수학,영어,total,mean,b1,b2,s1,s2);
 
 
     }

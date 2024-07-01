@@ -1,6 +1,10 @@
 package day16.model.dto;
 
 public class MemberDto { // 이동객체
+
+    // - DB 테이블의 회원마다 레코드/행 1개 이고 레코드/행 1개당 DTO 1개
+    // -> 회원이 여러개이면 --> DTO 여러개 --> ArrayList<MemberDto>
+
     // 1, 멤버변수 <--> DB필드와 동일 ,private 권장
     private String mid;             // 다른 패키지에서 사용할수없는 private이라는 String 타입의 mid변수 생성
     private String mpwd;            // 다른 패키지에서 사용할수없는 private이라는 String 타입의 mpwd변수 생성
