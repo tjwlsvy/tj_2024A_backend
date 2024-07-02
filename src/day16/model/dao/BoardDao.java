@@ -2,6 +2,7 @@ package day16.model.dao;
 
 import day16.model.dto.BoardDto;
 import day16.model.dto.MemberDto;
+import day16.model.dto.ReplyDto;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -37,7 +38,9 @@ public class BoardDao {
 
 
       try {// 0. 예외처리
-            String sql = "select * from board;";    // 1. sql 작성
+          // String sql = "select * from board;";    // 1. sql 작성
+          // board 의 mno와 member mno가 같으면 출력
+          String sql = "select * from board b inner join member m on b.mno = m.mno ";
           ps = conn.prepareStatement(sql);        // 2. sql 기재
           rs = ps.executeQuery();                 // 3. 기재된 sql 실행
           while (rs.next()){      // 4. 결과 레코드 전체를 하나씩 순화하기
@@ -52,6 +55,7 @@ public class BoardDao {
             int bno = rs.getInt("bno");
             // Dto 만들기
             BoardDto boardDto = new BoardDto(btitle,bcontent,bdate,bview,mno,bno);
+            boardDto.setMid(rs.getString("mid"));
 
             list.add(boardDto); // 리스트에 dto 담기
 
@@ -111,21 +115,15 @@ public class BoardDao {
   }
 
   // 7. 게시물 삭제 함수
-  public boolean bDelete(int bno , int mno){
-    try {
-        // sql 작성
-        String sql = "delete from board where bno = ? and mno = ? ";
-        // sql 기재
-        ps =conn.prepareStatement(sql);
-        // 기재된 sql 매개변수 대입
-        ps.setInt(1 , bno);
-        ps.setInt(2 , mno);
-        // sql 실행 후 결과반환
-        int count = ps.executeUpdate();
-
-        if (count == 1)return true; //  sql 실행 후 결과 받기
-
-    }catch (Exception e){System.out.println(e); }
+  public boolean bDelete( int bno , int mno  ){
+    try{ //0.예외처리
+      String sql ="delete from board where bno = ? and mno = ? "; // 1. SQL 작성
+      ps = conn.prepareStatement(sql); // 2. sql 기재
+      ps.setInt( 1 , bno );// 3. 기재된 sql의 ? 매개변수 값 대입
+      ps.setInt( 2 , mno );
+      int count = ps.executeUpdate(); // 4. sql 실행 후 결과 받기
+      if( count == 1 ) return true; // 5. 결과에 따른 반환처리
+    }catch (Exception e ){ System.out.println(e);}
     return false;
   }
 
@@ -143,13 +141,66 @@ public class BoardDao {
 
       if (count == 1)return true;
 
-
-
     }catch (Exception e){System.out.println(e);}
     return false;
   }
+  // 9. 댓글 출력 함수
+  public ArrayList<ReplyDto> rPrint(int bno){
+    ArrayList<ReplyDto> list = new ArrayList<>(); // 여러개 ReplyDto 담을 리스트
+    try {
+      // String sql = "select * from reply where bno = ?;"; // sql 작성
+      String sql = " select * from reply r inner join member m on r.mno = m.mno where r.bno = ? ";
+      ps = conn.prepareStatement(sql);  // sql 기재
+      ps.setInt(1 , bno);             // 기재된 sql의 ? 매개변수 값 대입
+      rs = ps.executeQuery();         // sql 실행 후 결과 반환
+      while (rs.next()){              // rs.next() : 결과에서 다음 레코드 이동
+        // - rs.get 타입("필드명") . rs.get타입("필드번호") : 두가지 방법 가능
+        ReplyDto replyDto = new ReplyDto(rs.getString(1), rs.getString(2) ,
+                                          rs.getInt(3), rs.getInt(4), rs.getInt(5)  );
+        replyDto.setMid(rs.getString(6));
+        // 생성된 dto 리스트 담기
+        list.add(replyDto);
+      }
+    }catch (Exception e){
+      System.out.println(e);}
+    return list;  // 리스트 반환
+
+  }
 
 
+  // 10. 댓글 쓰기 함수
+  public boolean rWrite(ReplyDto replyDto){
+    try {
+      String sql = "INSERT INTO reply( rcontent , mno , bno ) VALUES( ? , ? , ? )";
+      ps = conn.prepareStatement(sql);
+      ps.setString(1,replyDto.getRcontent());
+      ps.setInt(2,replyDto.getMno());
+      ps.setInt(3,replyDto.getBno());
+      int count = ps.executeUpdate();
+
+      if (count == 1){return true;}
 
 
+    }catch (Exception e){System.out.println(e);
+    }return false;
+
+  }
+
+  // 11. 조회수 증가 처리
+  public boolean viewIncrease(int bno){
+    try {
+      String sql = " update board set bview = bview + 1 where bno = ?";
+      ps = conn.prepareStatement(sql);
+      ps.setInt(1 , bno);
+      int count = ps.executeUpdate();
+      if (count == 1)return true;
+
+    }catch (Exception e){ System.out.println(e);
+    }return false;
+
+  }
 }
+
+
+
+

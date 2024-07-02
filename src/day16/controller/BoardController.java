@@ -4,6 +4,7 @@ import day16.model.dao.BoardDao;
 import day16.model.dao.MemberDao;
 import day16.model.dto.BoardDto;
 import day16.model.dto.MemberDto;
+import day16.model.dto.ReplyDto;
 
 import java.util.ArrayList;
 
@@ -41,16 +42,19 @@ public class BoardController {
 
   // 6. 게시물 개별조회 함수
   public BoardDto bView(int bno){
+
+    // 해당 게시물 조회수 처리
+    BoardDao.getInstance().viewIncrease(bno);
+
     // 다오에게 전체 게시물 조회 요청 후 결과를 반납
     return BoardDao.getInstance().bView(bno);
 
   }
 
   // 7. 게시물 삭제 함수
-  public boolean bDelete(int bno){
+  public boolean bDelete( int bno ){
     int mno = MemberController.mcontrol.loginMno;
-    return BoardDao.getInstance().bDelete(bno , mno);
-
+    return BoardDao.getInstance().bDelete( bno , mno );
   }
 
   // 8. 게시물 수정 함수
@@ -60,8 +64,24 @@ public class BoardController {
     return BoardDao.getInstance().bUpdate(boardDto);
   }
 
+  // 9. 댓글 출력 함수
+  public ArrayList<ReplyDto> rPrint(int bno){
+    return BoardDao.getInstance().rPrint(bno);
+
+  }
 
 
+  // 10. 댓글 쓰기 함수
+  public boolean rWrite(ReplyDto replyDto){
+    // - 현재 로그인된 회원의 번호 , 즉) 작성자 회원번호
+    replyDto.setMno(MemberController.mcontrol.loginMno);
+    return BoardDao.getInstance().rWrite(replyDto);
 
+  }
 
 }
+
+
+
+
+

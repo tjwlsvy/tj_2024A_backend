@@ -28,6 +28,11 @@ public class MemberController { // MemberController클래스를 만든가
     // 2-2 로그아웃 함수  // loginMno 지역변수에 0을 저장합니다
     public void logout(){ loginMno = 0;}     // 어디든 접근이 가능한 public으로 만들어진 void 반환타입의 logout()라는 함수를 만든다.
 
+    // 2-3 현재 로그인상태 반환함수
+    public boolean loginState(){
+        return loginMno == 0 ? false : true;
+    }
+
     // 2. 로그인 화면 함수
     public boolean login(MemberDto memberDto){  // 어디든 접근이 가능한 public으로 만들어진 void 반환타입의 login()라는 함수를 만든다.
         loginMno = MemberDao.mdao.login(memberDto); // memberDto을 MemberController.mcontrol.login에게 전달후 결과를 받은 정보를 int타입을 있는 login 대입한다.
