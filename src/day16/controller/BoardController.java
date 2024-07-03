@@ -29,6 +29,7 @@ public class BoardController {
     return BoardDao.getInstance().bprint();
   }
 
+
   // 5. 게시물 쓰기 함수
   public boolean bWrite(BoardDto boardDto){
     // 매개변수로 전달받은 BoardDto에 현재 로그인된 회원번호를 대입
@@ -78,8 +79,14 @@ public class BoardController {
     return BoardDao.getInstance().rWrite(replyDto);
 
   }
+  // 12. 제목검색 함수
+  public ArrayList<BoardDto> search(String title){
+    ArrayList<BoardDto> result = BoardDao.getInstance().search(title);
+    return result;
+  }   //  search 메소드 end
 
 }
+
 
 
 

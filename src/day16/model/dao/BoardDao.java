@@ -40,7 +40,7 @@ public class BoardDao {
       try {// 0. 예외처리
           // String sql = "select * from board;";    // 1. sql 작성
           // board 의 mno와 member mno가 같으면 출력
-          String sql = "select * from board b inner join member m on b.mno = m.mno ";
+          String sql = "select * from board b inner join member m on  b.mno = m.mno order by bno desc ";
           ps = conn.prepareStatement(sql);        // 2. sql 기재
           rs = ps.executeQuery();                 // 3. 기재된 sql 실행
           while (rs.next()){      // 4. 결과 레코드 전체를 하나씩 순화하기
@@ -199,6 +199,39 @@ public class BoardDao {
     }return false;
 
   }
+  // 12. 제목검색 함수
+  public ArrayList<BoardDto> search(String title){
+    ArrayList<BoardDto> list = new ArrayList<>();   // 리스트 만들기
+    try{
+      // String sql = "select *from board where btitle like '%제%'";           [가능]
+      // String sql = "select *from board where btitle like '%?%'";            [불가능 ?파라미터 인식 불가]
+      // String sql = "select *from board where btitle like ?";                [ ? -> ps.setString(1, "%"+title+"%");]연결방식이면 가능
+      // String sql = "select *from board where btitle like '%"+title+"%' ";   [ 연결 연산자 ] 가능
+      // String sql = "select *from board where bview like %?%";               [ 불가능 ]
+      // String sql = "select *from board where bview like %3%";                [불가능]
+      String sql = "select *from board where btitle like CONCAT( '%' , ? , '%')"; // [실행 가능]
+      // SQL 제공하는 CONCAT('문자열','문자열','문자열') 문자열 연결 함수
+
+      ps = conn.prepareStatement(sql);
+      ps.setString(1,title);
+      // ps.setString(1, "%"+title+"%");
+      // ps.setInt(1,3);
+
+      rs = ps.executeQuery();
+//      System.out.println(rs.next()); print에 next 하면 1바퀴 순회 사용 x
+      while (rs.next()){
+        BoardDto boardDto = new BoardDto(rs.getString("btitle"),rs.getString("bcontent"),
+                rs.getString("bdate"),rs.getInt("bview"),rs.getInt("mno"),rs.getInt("bno"));
+
+        list.add(boardDto);
+      }
+    }catch (Exception e){  System.out.println(e);
+    }
+    return list;
+  }   //  search 메소드 end
+
+
+
 }
 
 

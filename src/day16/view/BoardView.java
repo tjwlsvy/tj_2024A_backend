@@ -31,10 +31,7 @@ public class BoardView {                  // BoardView라는 클래스를 생성
         return;
       } else if (ch == 4) {    // 만약에 ch가 4이면 bprint()함수호출한다
         bprint();
-      } else {
-      }
-
-
+      } else {      }
     }
   }
 
@@ -94,12 +91,30 @@ public class BoardView {                  // BoardView라는 클래스를 생성
     result.forEach(dto -> {
       System.out.printf("%2d\t%2d\t%10s\t%10s\t%s \n", dto.getBno(), dto.getBview(), dto.getBdate(), dto.getMid() , dto.getBtitle());
     });
-    System.out.println("0.글쓰기 1~:개별글 조회 :"); int ch = scan.nextInt();
+    System.out.println("-1.제목검색 0.글쓰기 1~:개별글 조회 :"); int ch = scan.nextInt();
 
     if(ch==0){bWrite();}
     else if (ch >= 1){bView( ch );} // 게시글 번호 입력받기
+    else if (ch == -1){search();}
 
   }
+
+  // 12. 제목검색 함수
+  public void search(){
+      scan.nextLine();
+      System.out.println(" >> 찾을 제목을 입력해주세요. << ");
+      String title = scan.nextLine();
+      ArrayList<BoardDto> result = BoardController.getInstance().search(title);
+      System.out.println(result);
+      if(result.isEmpty()){
+        System.out.println(" 찾는 게시물이 없습니다.");
+      }else{
+        System.out.println("번호\t 조회수\t 작성일\t\t\t제목 \t작성자");
+        result.forEach(boardDto -> {        // 리스트 객체명.forEach(반복변수 -> {실행문}); // 리스트 내 전체 DTO를 하나씩 반복변수에 대입 반복
+          System.out.printf("%2d\t%2d\t%10s\t%s \n",boardDto.getBno(),boardDto.getBview(),boardDto.getBdate(),boardDto.getBtitle());
+        });
+      }
+    }   //  search 메소드 end
 
   // 5. 게시물 쓰기 함수
   public void bWrite(){ // 앞에 다른 next 가 있을때 필요없는 nextLine 필요
